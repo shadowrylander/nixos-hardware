@@ -11,7 +11,19 @@ let
 
       src = repos.linux-surface-kernel;
 
-      kernelPatches = [{
+      kernelPatches = [
+      {
+        name = "bcachefs-6ddf061e68560a2bb263b126af7e894a6c1afb5f";
+
+        patch = fetchpatch {
+          name = "bcachefs-6ddf061e68560a2bb263b126af7e894a6c1afb5f.diff";
+          url = "https://evilpiepirate.org/git/bcachefs.git/rawdiff/?id=6ddf061e68560a2bb263b126af7e894a6c1afb5f&id2=v5.16";
+          sha256 = "1nkrr1cxavw0rqxlyiz7pf9igvqay0d5kk7194v9ph3fcp9rz5kc";
+        };
+
+        extraConfig = "BCACHEFS_FS m";
+      }
+      {
         name = "microsoft-surface-patches-linux-5.16.2";
         patch = null;
         structuredExtraConfig = with lib.kernel; {
