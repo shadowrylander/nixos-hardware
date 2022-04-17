@@ -13,14 +13,6 @@ let
 
       kernelPatches = [
       {
-        name = "0110-initialize-ata-before-graphics";
-        patch = fetchpatch {
-          name = "0110-initialize-ata-before-graphics.diff";
-          url = "https://raw.githubusercontent.com/shadowrylander/shadowrylander/main/etc/nixos/patches/0110-initialize-ata-before-graphics.patch";
-          sha256 = "sha256-/jA0hZQPmv1SamIfvJVAzh3lc2bTWe8EycbPklkIEiA=";
-        };
-      }
-      {
         name = "bcachefs-6ddf061e68560a2bb263b126af7e894a6c1afb5f";
 
         patch = fetchpatch {
