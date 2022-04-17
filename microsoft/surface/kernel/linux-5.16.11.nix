@@ -17,7 +17,7 @@ let
         patch = fetchpatch {
           name = "0110-initialize-ata-before-graphics.diff";
           url = "https://raw.githubusercontent.com/shadowrylander/shadowrylander/main/etc/nixos/patches/0110-initialize-ata-before-graphics.patch";
-          sha256 = "1jxir4hpj9rchjz4mchi2aa2a7qkdhwgxr5jndk8ay1qaa9zcrj4";
+          sha256 = "sha256-/jA0hZQPmv1SamIfvJVAzh3lc2bTWe8EycbPklkIEiA=";
         };
       }
       {
