@@ -9,7 +9,13 @@ let
       modDirVersion = version;
       extraMeta.branch = "5.16";
 
-      src = repos.linux-surface-kernel;
+      # src = repos.linux-surface-kernel;
+      src = fetchFromGitHub {
+        owner = "xanmod";
+        repo = "linux";
+        rev = "0af0c5df407fd0b20e0935cd315dd337bdccff99";
+        sha256 = "";
+      };
 
       kernelPatches = [
       {
