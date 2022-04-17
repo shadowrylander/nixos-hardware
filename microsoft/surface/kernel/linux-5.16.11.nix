@@ -3,7 +3,7 @@
 # nix-build -E "with import <nixpkgs> {}; (pkgs.callPackage ./linux-5.16.11.nix {}).kernel"
 let
   repos = callPackage ../repos.nix {};
-  linuxPkg = { fetchurl, buildLinux, ... }@args:
+  linuxPkg = { fetchpatch, fetchurl, buildLinux, ... }@args:
     buildLinux (args // rec {
       version = "5.16.11";
       modDirVersion = version;
