@@ -14,7 +14,7 @@ let
         owner = "xanmod";
         repo = "linux";
         rev = "0af0c5df407fd0b20e0935cd315dd337bdccff99";
-        sha256 = "";
+        sha256 = "sha256-4NlD5VfsBx7e6GTCHGDs6hGmH7qs1mIkS23sj0HlK24=";
       };
 
       kernelPatches = [
