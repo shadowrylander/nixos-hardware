@@ -5,7 +5,7 @@ let
   repos = callPackage ../repos.nix {};
   linuxPkg = { fetchFromGitHub, fetchpatch, fetchurl, buildLinux, ... }@args:
     buildLinux (args // rec {
-      version = "5.16.11";
+      version = "5.16.11-xanmod1";
       modDirVersion = version;
       extraMeta.branch = "5.16";
 
