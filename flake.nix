@@ -1,6 +1,11 @@
 {
   description = "nixos-hardware";
 
+  inputs.flake-compat = {
+    url = "github:edolstra/flake-compat";
+    flake = false;
+  };
+
   outputs = { self }: {
     nixosModules = {
       acer-aspire-4810t = import ./acer/aspire/4810t;
