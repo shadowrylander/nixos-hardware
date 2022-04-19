@@ -99,6 +99,9 @@
       lenovo-thinkpad-x270 = import ./lenovo/thinkpad/x270;
       lenovo-thinkpad-x280 = import ./lenovo/thinkpad/x280;
       microsoft-surface = import ./microsoft/surface;
+
+      microsoft-surface-xanmod = import ./microsoft/surface/xanmod.nix;
+
       microsoft-surface-pro-3 = import ./microsoft/surface-pro/3;
       msi-gs60 = import ./msi/gs60;
       onenetbook-4 = import ./onenetbook/4;

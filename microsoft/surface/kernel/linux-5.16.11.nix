@@ -3,27 +3,16 @@
 # nix-build -E "with import <nixpkgs> {}; (pkgs.callPackage ./linux-5.16.11.nix {}).kernel"
 let
   repos = callPackage ../repos.nix {};
-  linuxPkg = { linuxKernel, fetchFromGitHub, fetchpatch, fetchurl, buildLinux, ... }@args:
+  linuxPkg = { linuxKernel, fetchurl, buildLinux, ... }@args:
     buildLinux (args // rec {
-      version = "5.16.11-xanmod1";
+      version = "5.16.11";
       modDirVersion = version;
       extraMeta.branch = "5.16";
 
-      # src = repos.linux-surface-kernel;
-      src = fetchFromGitHub {
-        owner = "xanmod";
-        repo = "linux";
-        rev = "0af0c5df407fd0b20e0935cd315dd337bdccff99";
-        sha256 = "sha256-4NlD5VfsBx7e6GTCHGDs6hGmH7qs1mIkS23sj0HlK24=";
-      };
+      src = repos.linux-surface-kernel;
 
       kernelPatches = [
       (lib.last (lib.filter (set: lib.hasPrefix "bcachefs-" set.name) linuxKernel.kernels.linux_testing_bcachefs.kernelPatches))
-      {
-        name = "5.16.11-xanmod1";
-        patch = null;
-        inherit (linuxKernel.kernels.linux_xanmod) structuredExtraConfig;
-      }
       {
         name = "microsoft-surface-patches-linux-5.16.2";
         patch = null;
