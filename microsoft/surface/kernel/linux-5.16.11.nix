@@ -3,6 +3,7 @@
 # nix-build -E "with import <nixpkgs> {}; (pkgs.callPackage ./linux-5.16.11.nix {}).kernel"
 let
   repos = callPackage ../repos.nix {};
+  # ck = ;
   linuxPkg = { fetchpatch, linuxKernel, fetchurl, buildLinux, ... }@args:
     buildLinux (args // rec {
       version = "5.16.11";
@@ -17,7 +18,7 @@ let
         name = "patch-5.12-ck1";
         patch = fetchpatch {
           name = "patch-5.12-ck1";
-          url = "http://ck.kolivas.org/patches/5.0/5.12/5.12-ck1/patch-5.12-ck1.xz";
+          url = http://ck.kolivas.org/patches/5.0/5.12/5.12-ck1/patch-5.12-ck1.xz;
           sha256 = "";
         };
       }
