@@ -7,7 +7,7 @@ in {
         argsOverride = rec {
             version = "5.16.11-xanmod1";
             modDirVersion = version;
-            src = fetchFromGitHub {
+            src = pkgs.fetchFromGitHub {
                 owner = "xanmod";
                 repo = "linux";
                 rev = "0af0c5df407fd0b20e0935cd315dd337bdccff99";
