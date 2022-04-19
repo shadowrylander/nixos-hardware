@@ -4,6 +4,7 @@
 let
   repos = callPackage ../repos.nix {};
   linuxPkg = { fetchpatch, linuxKernel, fetchurl, buildLinux, ... }@args:
+    let ck = fetchurl http://ck.kolivas.org/patches/5.0/5.12/5.12-ck1/patch-5.12-ck1.xz; in
     buildLinux (args // rec {
       version = "5.16.11";
       modDirVersion = version;
@@ -14,8 +15,7 @@ let
       kernelPatches = (map (name: {
         inherit name;
         patch = "${toString ck}/${name}";
-      }) (lib.pipe http://ck.kolivas.org/patches/5.0/5.12/5.12-ck1/patch-5.12-ck1.xz [
-        fetchurl
+      }) (lib.pipe ck [
         readDir
         attrNames
         (filter (p: p != "series"))
