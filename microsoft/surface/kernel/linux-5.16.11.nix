@@ -16,9 +16,9 @@ let
         inherit name;
         patch = "${toString ck}/${name}";
       }) (lib.pipe ck [
-        readDir
-        attrNames
-        (filter (p: p != "series"))
+        builtins.readDir
+        lib.attrNames
+        (lib.filter (p: p != "series"))
       ])) ++ [
       (lib.last (lib.filter (set: lib.hasPrefix "bcachefs-" set.name) linuxKernel.kernels.linux_testing_bcachefs.kernelPatches))
       {
