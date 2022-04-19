@@ -3,7 +3,7 @@
 # nix-build -E "with import <nixpkgs> {}; (pkgs.callPackage ./linux-5.16.11.nix {}).kernel"
 let
   repos = callPackage ../repos.nix {};
-  # ck = ;
+  ck = fetchurl http://ck.kolivas.org/patches/5.0/5.12/5.12-ck1/patch-5.12-ck1.xz;
   linuxPkg = { fetchpatch, linuxKernel, fetchurl, buildLinux, ... }@args:
     buildLinux (args // rec {
       version = "5.16.11";
@@ -12,16 +12,11 @@ let
 
       src = repos.linux-surface-kernel;
 
-      kernelPatches = [
+      kernelPatches = (map (name: {
+        inherit name;
+        patch = "${toString ck}/${name}";
+      }) (filter (p: p != "series") (attrNames (readDir ck)))) ++ [
       (lib.last (lib.filter (set: lib.hasPrefix "bcachefs-" set.name) linuxKernel.kernels.linux_testing_bcachefs.kernelPatches))
-      {
-        name = "patch-5.12-ck1";
-        patch = fetchpatch {
-          name = "patch-5.12-ck1";
-          url = http://ck.kolivas.org/patches/5.0/5.12/5.12-ck1/patch-5.12-ck1.xz;
-          sha256 = "";
-        };
-      }
       {
         name = "microsoft-surface-patches-linux-5.16.2";
         patch = null;
