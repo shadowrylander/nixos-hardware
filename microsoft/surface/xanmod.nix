@@ -1,4 +1,4 @@
-{ config, pkgs, ... }: with lib; let
+{ config, pkgs, lib, ... }: with lib; let
     kernel = pkgs.callPackage ./kernel/linux-5.16.11.nix { };
     structuredExtraConfig = kernel.structuredExtraConfig or {};
 in {
