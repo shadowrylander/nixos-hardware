@@ -3,7 +3,7 @@
 # nix-build -E "with import <nixpkgs> {}; (pkgs.callPackage ./linux-5.16.11.nix {}).kernel"
 let
   repos = callPackage ../repos.nix {};
-  linuxPkg = { fetchFromGitHub, fetchpatch, fetchurl, buildLinux, ... }@args:
+  linuxPkg = { linuxKernel, fetchFromGitHub, fetchpatch, fetchurl, buildLinux, ... }@args:
     buildLinux (args // rec {
       version = "5.16.11-xanmod1";
       modDirVersion = version;
@@ -18,62 +18,11 @@ let
       };
 
       kernelPatches = [
-      {
-        name = "bcachefs-6ddf061e68560a2bb263b126af7e894a6c1afb5f";
-
-        patch = fetchpatch {
-          name = "bcachefs-6ddf061e68560a2bb263b126af7e894a6c1afb5f.diff";
-          url = "https://evilpiepirate.org/git/bcachefs.git/rawdiff/?id=6ddf061e68560a2bb263b126af7e894a6c1afb5f&id2=v5.16";
-          sha256 = "1nkrr1cxavw0rqxlyiz7pf9igvqay0d5kk7194v9ph3fcp9rz5kc";
-        };
-
-        extraConfig = "BCACHEFS_FS m";
-      }
+      (lib.last (lib.filter (set: lib.hasPrefix "bcachefs-" set.name) linuxKernel.kernels.linux_testing_bcachefs.kernelPatches))
       {
         name = "5.16.11-xanmod1";
         patch = null;
-        structuredExtraConfig = with lib.kernel; {
-          # removed options
-          CFS_BANDWIDTH = lib.mkForce (option no);
-          RT_GROUP_SCHED = lib.mkForce (option no);
-          SCHED_AUTOGROUP = lib.mkForce (option no);
-
-          # AMD P-state driver
-          X86_AMD_PSTATE = yes;
-
-          # Linux RNG framework
-          LRNG = yes;
-
-          # Paragon's NTFS3 driver
-          NTFS3_FS = module;
-          NTFS3_LZX_XPRESS = yes;
-          NTFS3_FS_POSIX_ACL = yes;
-
-          # Preemptive Full Tickless Kernel at 500Hz
-          SCHED_CORE = lib.mkForce (option no);
-          PREEMPT_VOLUNTARY = lib.mkForce no;
-          PREEMPT = lib.mkForce yes;
-          NO_HZ_FULL = yes;
-          HZ_500 = yes;
-
-          # Google's BBRv2 TCP congestion Control
-          TCP_CONG_BBR2 = yes;
-          DEFAULT_BBR2 = yes;
-
-          # FQ-PIE Packet Scheduling
-          NET_SCH_DEFAULT = yes;
-          DEFAULT_FQ_PIE = yes;
-
-          # Graysky's additional CPU optimizations
-          CC_OPTIMIZE_FOR_PERFORMANCE_O3 = yes;
-
-          # Futex WAIT_MULTIPLE implementation for Wine / Proton Fsync.
-          FUTEX = yes;
-          FUTEX_PI = yes;
-
-          # WineSync driver for fast kernel-backed Wine
-          WINESYNC = module;
-        };
+        inherit (linuxKernel.kernels.linux_xanmod) structuredExtraConfig;
       }
       {
         name = "microsoft-surface-patches-linux-5.16.2";
