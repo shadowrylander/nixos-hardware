@@ -104,9 +104,6 @@
       lenovo-thinkpad-x270 = import ./lenovo/thinkpad/x270;
       lenovo-thinkpad-x280 = import ./lenovo/thinkpad/x280;
       microsoft-surface = import ./microsoft/surface;
-
-      microsoft-surface-xanmod = import ./microsoft/surface/xanmod.nix;
-
       microsoft-surface-pro-3 = import ./microsoft/surface-pro/3;
       msi-gs60 = import ./msi/gs60;
       onenetbook-4 = import ./onenetbook/4;
@@ -126,7 +123,6 @@
       system76-darp6 = import ./system76/darp6;
       toshiba-swanky = import ./toshiba/swanky;
       tuxedo-infinitybook-v4 = import ./tuxedo/infinitybook/v4;
-
       common-cpu-amd = import ./common/cpu/amd;
       common-cpu-intel = import ./common/cpu/intel;
       common-cpu-intel-kaby-lake = import ./common/cpu/intel/kaby-lake;
